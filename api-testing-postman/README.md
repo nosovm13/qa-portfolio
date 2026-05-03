@@ -1,4 +1,4 @@
-# API Testing - Postman
+# API Testing —  Postman
 
 Учебный проект по тестированию REST API с использованием Postman.
 
