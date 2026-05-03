@@ -1,0 +1,296 @@
+{
+	"info": {
+		"_postman_id": "9c2711c5-a4e8-4c53-b71b-694171446cc3",
+		"name": "API Testing",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "42229481",
+		"_collection_link": "https://nteam9.postman.co/workspace/DummyJSON-Products-API~df4286ce-820a-4d27-8bd3-4f9e57f2a698/collection/42229481-9c2711c5-a4e8-4c53-b71b-694171446cc3?action=share&source=collection_link&creator=42229481"
+	},
+	"item": [
+		{
+			"name": "GET-Request",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"response body contains id\", function() {\r",
+							"    const joinData = pm.response.json();\r",
+							"    pm.expect(joinData).to.have.property(\"id\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"response body contains title\", function () {\r",
+							"    const jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData).to.have.property(\"title\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"post id is correct\", function () {\r",
+							"    const jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.id).to.eql(Number(pm.environment.get(\"post_id\")));\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/posts/{{post_id}}",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"posts",
+						"{{post_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST-Request",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 201\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response body contains id\", function () {\r",
+							"    const jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData).to.have.property(\"id\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Post title is correct\", function () {\r",
+							"    const jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.title).to.eql(\"Test post\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"User id is correct\", function () {\r",
+							"    const jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.userId).to.eql(1);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"title\": \"Test post\",\r\n  \"body\": \"This post was created for API testing practice\",\r\n  \"userId\": 1\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/posts",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"posts"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PUT-Request",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Post body was updated\", function () {\r",
+							"    const jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.body).to.eql(\"This post was updated for API testing practice\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Post id is correct\", function () {\r",
+							"    const jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.id).to.eql(Number(pm.environment.get(\"post_id\")));\r",
+							"});\r",
+							"pm.test(\"Post title was updated\", function () {\r",
+							"    const jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.title).to.eql(\"Updated test post\");\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"id\": 1,\r\n  \"title\": \"Updated test post\",\r\n  \"body\": \"This post was updated for API testing practice\",\r\n  \"userId\": 1\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/posts/{{post_id}}",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"posts",
+						"{{post_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DELETE-Request",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response body is empty object\", function () {\r",
+							"    const jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData).to.be.an(\"object\");\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/posts/{{post_id}}",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"posts",
+						"{{post_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET-TitleRequest",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response body is array\", function () {\r",
+							"    const jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData).to.be.an(\"array\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"All posts belong to userId 1\", function () {\r",
+							"    const jsonData = pm.response.json();\r",
+							"\r",
+							"    jsonData.forEach(function (post) {\r",
+							"        pm.expect(post.title).to.eql(\"qui est esse\");\r",
+							"    });\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/posts?title=qui est esse",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"posts"
+					],
+					"query": [
+						{
+							"key": "title",
+							"value": "qui est esse"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET-NegativeRequest",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 404\", function () {\r",
+							"    pm.response.to.have.status(404);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/posts/{{doesnt_exist_post_id}}",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"posts",
+						"{{doesnt_exist_post_id}}"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
