@@ -1,4 +1,4 @@
-# Test Plan: API Testing - Postman
+# Test Plan: API Testing — Postman
 
 ## Объект тестирования
 
