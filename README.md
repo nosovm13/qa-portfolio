@@ -50,7 +50,7 @@ Junior QA Engineer / Manual QA
 
 ---
 
-### PostgreSQL QA Practice
+### SQL Testing — PostgreSQL
 
 SQL-запросы для проверки данных в демонстрационной базе PostgreSQL.
 
